@@ -29,11 +29,12 @@ class _BmiCalculator extends State<BmiCalculator> {
             children: [
               Column(
                 children: [
+                  SizedBox(height: 10.0),
                   Text(
                     "GENDER",
                     style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
                         color: Colors.white),
                   ),
                   SizedBox(
@@ -65,16 +66,16 @@ class _BmiCalculator extends State<BmiCalculator> {
                   ),
                   SizedBox(height: 50.0),
                   Text(
-                    "Height",
+                    "HEIGHT",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w500),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 10.0),
                   Text(
                     "$_heightValue cm",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    style: TextStyle(color: Colors.white, fontSize: 24.0),
                   ),
                   Slider(
                     value: _heightValue,
@@ -91,16 +92,16 @@ class _BmiCalculator extends State<BmiCalculator> {
                   ),
                   SizedBox(height: 50.0),
                   Text(
-                    "Weight",
+                    "WEIGHT",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w500),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 20.0),
                   Text(
                     "$_weightValue kg",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    style: TextStyle(color: Colors.white, fontSize: 24.0),
                   ),
                   Slider(
                     value: _weightValue,
@@ -125,28 +126,49 @@ class _BmiCalculator extends State<BmiCalculator> {
                       borderRadius: BorderRadius.circular(80),
                     ),
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _bmi = (_weightValue /
+                            ((_heightValue * _heightValue) / 10000));
+
+                        var finalResult;
+
+                        _bmi = _bmi * 100;
+
+                        finalResult = _bmi.round();
+
+                        _bmi = finalResult / 100;
+
+                        debugPrint("$_bmi");
+
+                        if (_bmi >= 18.5 && _bmi <= 25) {
+                          comments = "You are Totaly Fit";
+                        } else if (_bmi < 18.5) {
+                          comments = "You are Underweighted";
+                        } else if (_bmi > 25 && _bmi <= 30) {
+                          comments = "You are Overweighted";
+                        } else {
+                          comments = "You are Obesed";
+                        }
+                      },
                       child: Icon(Icons.arrow_forward,
                           size: 50, color: Colors.red),
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Your BMI : ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20),
-                      ),
-                      Text("The BMI Table",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20)),
-                    ],
+                  Text(
+                    "Your BMI : $_bmi",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  ),
+                  SizedBox(height: 25),
+                  Text(
+                    "$comments",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18),
                   ),
                 ],
               ),
@@ -158,24 +180,6 @@ class _BmiCalculator extends State<BmiCalculator> {
   }
 
   //Function definitions
-
-  void calculateBMI() {
-    _bmi = (_weightValue / ((_heightValue * _heightValue) / 10000));
-    // return _bmi;
-  }
-
-  String Remarks(var _bmi) {
-    if (_bmi >= 18.5 && _bmi <= 25) {
-      comments = "You are Totaly Fit";
-    } else if (_bmi < 18.5) {
-      comments = "You are Underweighted";
-    } else if (_bmi > 25 && _bmi <= 30) {
-      comments = "You are Overweighted";
-    } else {
-      comments = "You are Obesed";
-    }
-    return comments;
-  }
 
   Widget genderCard({String gender, bool isSelected}) {
     return Container(
