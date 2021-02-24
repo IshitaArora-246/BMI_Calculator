@@ -15,6 +15,7 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -22,40 +23,42 @@ class InfoScreen extends StatelessWidget {
                 colors: [Colors.black87, Colors.blueGrey])),
         padding: EdgeInsets.only(top: 15.0),
         child: SafeArea(
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                    icon: Icon(Icons.arrow_back,
-                        color: Colors.tealAccent, size: 35),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                Text("Facts about BMI",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                    )),
-                SizedBox(
-                  width: 24,
-                ),
-              ],
-            ),
-            SizedBox(height: 20.0),
-            Column(
-              children: List.generate(
-                  facts.length, (index) => listItems(facts[index])),
-            ),
-            SizedBox(height: 20.0),
-            Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Image.asset("assets/chart.jpg")),
-          ]),
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.arrow_back,
+                          color: Colors.tealAccent, size: 35),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  Text("Facts about BMI",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                      )),
+                  SizedBox(
+                    width: 24,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0),
+              Column(
+                children: List.generate(
+                    facts.length, (index) => listItems(facts[index])),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                  ),
+                  child: Image.asset("assets/chart.jpg")),
+            ]),
+          ),
         ),
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:BMI_Calculator/screens/infoScreen.dart';
 import 'package:flutter/material.dart';
 
-//Creating stateful widget
 class BmiCalculator extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,9 +8,7 @@ class BmiCalculator extends StatefulWidget {
   }
 }
 
-//State definition
 class _BmiCalculator extends State<BmiCalculator> {
-  //Declaration of variables
   double screenHeight;
   double screenWidth;
   num _heightValue = 0.0;
@@ -29,6 +26,7 @@ class _BmiCalculator extends State<BmiCalculator> {
 
     return Scaffold(
       body: Container(
+        height: screenHeight,
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -38,149 +36,142 @@ class _BmiCalculator extends State<BmiCalculator> {
         child: SafeArea(
           child: Column(
             children: [
-              Column(
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Text("BMI CALCULATOR",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 5,
-                              color: Colors.teal[300])),
-                    ],
-                  ),
-                  SizedBox(height: 15.0),
-                  Text(
-                    "GENDER",
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          if (!isMale)
-                            setState(() {
-                              isMale = true;
-                            });
-                        },
-                        child: genderCard(gender: "Male", isSelected: isMale),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          if (isMale)
-                            setState(() {
-                              isMale = false;
-                            });
-                        },
-                        child:
-                            genderCard(gender: "Female", isSelected: !isMale),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 50.0),
-                  Text(
-                    "HEIGHT",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    "${_heightValue.toStringAsFixed(1)} cm",
-                    style: TextStyle(color: Colors.white, fontSize: 24.0),
-                  ),
-                  Slider(
-                    value: _heightValue,
-                    activeColor: Colors.green[200],
-                    inactiveColor: Colors.white,
-                    min: 0,
-                    max: 200,
-                    divisions: 400,
-                    onChanged: (changeValue) {
-                      setState(() {
-                        _heightValue = changeValue;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    "WEIGHT",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    "${_weightValue.toStringAsFixed(1)} kg",
-                    style: TextStyle(color: Colors.white, fontSize: 24.0),
-                  ),
-                  Slider(
-                    value: _weightValue,
-                    activeColor: Colors.green[200],
-                    inactiveColor: Colors.white,
-                    min: 0,
-                    max: 120,
-                    divisions: 240,
-                    onChanged: (changeValue) {
-                      setState(() {
-                        _weightValue = changeValue;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 55,
-                    width: 170,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Colors.teal[600], Colors.green[300]]),
-                      borderRadius: BorderRadius.circular(70),
-                    ),
-                    child: FlatButton(
-                      onPressed: () {
-                        calculateBMI();
-                      },
-                      child: Text("Calculate", style: TextStyle(fontSize: 22)),
-                    ),
-                  ),
-                  SizedBox(height: 40.0),
-                  showText(),
-                  SizedBox(height: 20.0),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => InfoScreen()));
-                      setState(() {
-                        _heightValue = 0.0;
-                        _weightValue = 0.0;
-                        isCalculated = false;
-                      });
-                    },
-                    child: Text(
-                      "BMI Chart",
+                  Text("BMI CALCULATOR",
+                      textAlign: TextAlign.left,
                       style: TextStyle(
-                          fontSize: 20,
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue[900]),
-                    ),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          wordSpacing: 5,
+                          color: Colors.teal[300])),
+                ],
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                "GENDER",
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      if (!isMale)
+                        setState(() {
+                          isMale = true;
+                        });
+                    },
+                    child: genderCard(gender: "Male", isSelected: isMale),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (isMale)
+                        setState(() {
+                          isMale = false;
+                        });
+                    },
+                    child: genderCard(gender: "Female", isSelected: !isMale),
                   ),
                 ],
+              ),
+              SizedBox(height: 30.0),
+              Text(
+                "HEIGHT",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                "${_heightValue.toStringAsFixed(1)} cm",
+                style: TextStyle(color: Colors.white, fontSize: 24.0),
+              ),
+              Slider(
+                value: _heightValue,
+                activeColor: Colors.green[200],
+                inactiveColor: Colors.white,
+                min: 0,
+                max: 200,
+                divisions: 400,
+                onChanged: (changeValue) {
+                  setState(() {
+                    _heightValue = changeValue;
+                  });
+                },
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                "WEIGHT",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                "${_weightValue.toStringAsFixed(1)} kg",
+                style: TextStyle(color: Colors.white, fontSize: 24.0),
+              ),
+              Slider(
+                value: _weightValue,
+                activeColor: Colors.green[200],
+                inactiveColor: Colors.white,
+                min: 0,
+                max: 120,
+                divisions: 240,
+                onChanged: (changeValue) {
+                  setState(() {
+                    _weightValue = changeValue;
+                  });
+                },
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                height: 55,
+                width: 170,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.teal[600], Colors.green[300]]),
+                  borderRadius: BorderRadius.circular(70),
+                ),
+                child: FlatButton(
+                  onPressed: () {
+                    calculateBMI();
+                  },
+                  child: Text("Calculate", style: TextStyle(fontSize: 22)),
+                ),
+              ),
+              SizedBox(height: 40.0),
+              showText(),
+              SizedBox(height: 5),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => InfoScreen()));
+                  setState(() {
+                    _heightValue = 0.0;
+                    _weightValue = 0.0;
+                    isCalculated = false;
+                  });
+                },
+                child: Text(
+                  "More on BMI",
+                  style: TextStyle(
+                      fontSize: 20,
+                      decoration: TextDecoration.underline,
+                      color: Colors.blue[900]),
+                ),
               ),
             ],
           ),
@@ -188,8 +179,6 @@ class _BmiCalculator extends State<BmiCalculator> {
       ),
     );
   }
-
-  //Function definitions
 
   Widget showText() {
     if (isCalculated) {
@@ -237,9 +226,8 @@ class _BmiCalculator extends State<BmiCalculator> {
 
   Widget genderCard({String gender, bool isSelected}) {
     return Container(
-      height: screenHeight * 0.14,
       width: screenWidth * 0.4,
-      padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 10.0),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -251,18 +239,18 @@ class _BmiCalculator extends State<BmiCalculator> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: 15.0),
+            SizedBox(height: 10.0),
             if (gender == "Male")
               (Image.asset(
                 "assets/male.png",
-                width: 45,
-                height: 45,
+                width: 36,
+                height: 36,
               ))
             else
               (Image.asset(
                 "assets/female.png",
-                width: 45,
-                height: 45,
+                width: 36,
+                height: 36,
               )),
             SizedBox(height: 5.0),
             Text(
